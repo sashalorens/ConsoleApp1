@@ -11,7 +11,7 @@ namespace ConsoleApp1
         public int[] getUserInput(int amount)
         {
             List<int> numbers = new List<int>();
-            string[] suffixes = { "st", "nd", "rd" };
+            string[] suffixes = { "st", "nd", "rd", "th" };
 
             for (int i = 0; i < amount; i++)
             {
@@ -19,7 +19,9 @@ namespace ConsoleApp1
 
                 do
                 {
-                    Console.WriteLine($"Please enter the {i + 1}{suffixes[i]} number");
+                    int suffixIndex = Math.Min(i, suffixes.Length - 1);
+                    string description = amount == 1 ? "your" : $"{i + 1}{suffixes[suffixIndex]}";
+                    Console.WriteLine($"Please enter the {description} number");
                 } while (!int.TryParse(Console.ReadLine(), out temp));
                 numbers.Add(temp);
 
