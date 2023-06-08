@@ -7,12 +7,8 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ConsoleApp1
 {
-    internal class Student
+    internal class Student: Person
     {
-        private string FirstName { get; set; }
-        private string LastName { get; set; }
-        private string City { get; set; }
-        private int Age { get; set; }
         private Course[] CoursesAttended { get; set; }
 
         private int CourseCounter = 0;
@@ -20,11 +16,8 @@ namespace ConsoleApp1
 
         
         public Student(string firstName, string lastName, int age, string city, Course[] coursesAttended)
+            : base(firstName, lastName, age, city)
         {
-            FirstName = firstName;
-            LastName = lastName;
-            Age = age;
-            City = city;
             CoursesAttended = coursesAttended;
         }
 
@@ -42,6 +35,12 @@ namespace ConsoleApp1
 
         public Student() : this("Unknown")
         { }
+
+        public override void DescribeYourself()
+        {
+            base.DescribeYourself();
+            Console.WriteLine("I'm a student");
+        }
 
         public void Print()
         {
