@@ -7,8 +7,16 @@
             Teacher teacher = new Teacher("Perry", "Cox", 45);
             teacher.DescribeYourself();
 
+            Course course = new Course("Math", "Walter Gilman");
+
             Student student = new Student("John", "Dorian", 29);
-            student.DescribeYourself();
+            student.AddCourse(course);
+            student.Print();
+
+            teacher.AddStudent(student);
+            Console.WriteLine(teacher.GetNumberOfStudents());
+            teacher.RemoveStudent(student);
+            Console.WriteLine(teacher.GetNumberOfStudents());
         }
     }
 }

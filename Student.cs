@@ -7,19 +7,12 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ConsoleApp1
 {
-    internal class Student: Person
+    public class Student: Person
     {
-        private Course[] CoursesAttended { get; set; }
-
-        private int CourseCounter = 0;
-
-
         
         public Student(string firstName, string lastName, int age, string city, Course[] coursesAttended)
             : base(firstName, lastName, age, city)
-        {
-            CoursesAttended = coursesAttended;
-        }
+        { }
 
         public Student(string firstName, string lastName, int age, string city) : this(firstName, lastName, age, city, new Course[10])
         { }
@@ -45,10 +38,10 @@ namespace ConsoleApp1
         public void Print()
         {
             Console.WriteLine($"{FirstName} {LastName}, {Age} y.o., city: {City}");
-            if (CourseCounter > 0)
+            if (Courses.Count > 0)
             {
                 Console.WriteLine("Courses attended:");
-                foreach (Course course in CoursesAttended)
+                foreach (Course course in Courses)
                 {
                     if (!(course?.CourseName != null))
                     {
@@ -57,38 +50,6 @@ namespace ConsoleApp1
                     Console.WriteLine(course.CourseName);
                 }
             }
-        }
-
-        public Course[] Enroll(Course course)
-        {
-            string name = course.CourseName;
-            try
-            {
-                CoursesAttended[CourseCounter] = course;
-                CourseCounter += 1;
-                Console.WriteLine($"You've successfully enrolled in a new {name} course!");
-            } catch (Exception)
-            {
-                Console.WriteLine($"Sorry, you can't enroll in {name} course, as you can attend 10 courses at max");
-            }
-            return CoursesAttended;
-        }
-
-        public Course[] Drop(string course)
-        {
-            Course[] array = new Course[10];
-            int lastIndex = 0;
-
-            foreach(Course item in CoursesAttended)
-            {
-                if (item?.CourseName != null && item.CourseName != course)
-                {
-                    array[lastIndex] = item;
-                    lastIndex++;
-                }
-            }
-            CoursesAttended = array;
-            return CoursesAttended;
         }
     }
 }

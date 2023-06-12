@@ -8,6 +8,7 @@ namespace ConsoleApp1
 {
     internal class Teacher: Person
     {
+        protected List<Student> Students { get; set; } = new List<Student>();
         public Teacher(string firstName, string lastName, int age, string city)
             : base(firstName, lastName, age, city)
         {}
@@ -25,5 +26,19 @@ namespace ConsoleApp1
             base.DescribeYourself();
             Console.WriteLine("I'm a teacher");
         }
+
+        public List<Student> AddStudent(Student student)
+        {
+            if (!Students.Contains(student))
+            {
+                Students.Add(student);
+            }
+
+            return Students;
+        }
+
+        public bool RemoveStudent(Student student) => Students.Remove(student);
+
+        public int GetNumberOfStudents() => Students.Count;
     }
 }

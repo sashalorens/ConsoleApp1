@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
-    internal class Course
+    public class Course
     {
         public string CourseName { get; set; }
         private string InstructorName { get; set; }
@@ -46,10 +46,17 @@ namespace ConsoleApp1
 
         public List<Student> EnrollStudent(Student person)
         {
-            Students.Add(person);
-            NumberOfStudents++;
+            if (!Students.Contains(person))
+            {
+                Students.Add(person);
+                NumberOfStudents++;
+            }
             return Students;
         }
+
+        public bool RemoveStudent(Student student) => Students.Remove(student);
+
+        public int GetNumberOfStudents() => Students.Count;
 
     }
 }
