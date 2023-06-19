@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
-    internal class Teacher: Person
+    public class Teacher: Person
     {
         protected List<Student> Students { get; set; } = new List<Student>();
         public Teacher(string firstName, string lastName, int age, string city)
-            : base(firstName, lastName, age, city)
+            : base(firstName, lastName, age, city, "Teacher")
         {}
 
         public Teacher(string firstName, string lastName, int age) : this(firstName, lastName, age, "Unknown city") { }

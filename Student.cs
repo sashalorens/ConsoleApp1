@@ -11,7 +11,7 @@ namespace ConsoleApp1
     {
         
         public Student(string firstName, string lastName, int age, string city, Course[] coursesAttended)
-            : base(firstName, lastName, age, city)
+            : base(firstName, lastName, age, city, "Student")
         { }
 
         public Student(string firstName, string lastName, int age, string city) : this(firstName, lastName, age, city, new Course[10])

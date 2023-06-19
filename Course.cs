@@ -9,31 +9,32 @@ namespace ConsoleApp1
     public class Course
     {
         public string CourseName { get; set; }
-        private string InstructorName { get; set; }
+        private Teacher Instructor { get; set; }
         private int Duration { get; set; }
-        private int NumberOfStudents { get; set; }
 
-        private List<Student> Students;
+        private List<Student> Students { get; set; }
 
-        public Course(string name, string instructorName, int duration, int numberOfStudents, List<Student> students)
+        public Course(string name, Teacher instructor, int duration, List<Student> students)
         {
             CourseName = name;
-            InstructorName = instructorName;
+            Instructor = instructor;
             Duration = duration;
-            NumberOfStudents = numberOfStudents;
             Students = students;
+
+            instructor.AddCourse(this);
+            foreach(Student student in students)
+            {
+                student.AddCourse(this);
+            }
         }
 
-        public Course(string name, string instructorName, int duration, int numberOfStudents) : this(name, instructorName, duration, numberOfStudents, new List<Student>())
+        public Course(string name, Teacher instructor, int duration) : this(name, instructor, duration, new List<Student>())
         { }
 
-        public Course(string name, string instructorName, int duration) : this(name, instructorName, duration, 0)
+        public Course(string name, Teacher instructor) : this(name, instructor, 100)
         { }
 
-        public Course(string name, string instructorName) : this(name, instructorName, 100)
-        { }
-
-        public Course(string name) : this(name, "Unknown instructor")
+        public Course(string name) : this(name, new Teacher())
         { }
 
         public Course() : this("Unknown course")
@@ -41,22 +42,21 @@ namespace ConsoleApp1
 
         public void Print()
         {
-            Console.WriteLine($"Course: {CourseName}, your instructor is {InstructorName}, the duration is {Duration} hours, there are {NumberOfStudents} students attending");
+            Console.WriteLine($"Course: {CourseName}, your instructor is {Instructor.GetName()}, the duration is {Duration} hours, there are {Students.Count} students attending");
         }
 
         public List<Student> EnrollStudent(Student person)
         {
-            if (!Students.Contains(person))
-            {
-                Students.Add(person);
-                NumberOfStudents++;
-            }
+            Students.Add(person);
+            person.AddCourse(this);
             return Students;
         }
 
-        public bool RemoveStudent(Student student) => Students.Remove(student);
-
-        public int GetNumberOfStudents() => Students.Count;
+        public override string ToString()
+        {
+            string studentData = Students.Aggregate("", (a, c) => a.Length > 0 ? $"{a}, {c.GetName()}" : c.GetName());
+            return $"{CourseName} course; instructor: {Instructor.GetName()}; duration: {Duration}; students: {studentData}; students total: {Students.Count}.";
+        }
 
     }
 }
